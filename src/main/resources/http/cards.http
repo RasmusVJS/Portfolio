@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:7070
+
+### GET request to example server
+GET {{baseUrl}}/cards
+
+### POST
+POST {{baseUrl}}/cards
+
+{
+    "value": 1,
+    "suit": "spade"
+
+}
+
+### Get by id
+GET {{baseUrl}}/cards/14
+
+### Update by id
+PUT {{baseUrl}}/cards/14
+
+{
+    "value": 14,
+    "suit": "heart"
+}
+
+### Delete by id
+DELETE {{baseUrl}}/cards/14
