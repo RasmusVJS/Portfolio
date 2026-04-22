@@ -25,3 +25,26 @@ PUT {{baseUrl}}/cards/14
 
 ### Delete by id
 DELETE {{baseUrl}}/cards/14
+
+### GET request to example server
+GET {{baseUrl}}/decks
+
+### POST
+POST {{baseUrl}}/decks
+
+{
+
+}
+
+### Get by id
+GET {{baseUrl}}/decks/1
+
+### Update by id
+PUT {{baseUrl}}/decks/1
+
+{
+
+}
+
+### Delete by id
+DELETE {{baseUrl}}/cards/1

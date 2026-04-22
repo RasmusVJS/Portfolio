@@ -1,14 +1,19 @@
 package app;
 
 import app.controllers.CardController;
+import app.controllers.DeckController;
 import app.daos.CardDAO;
+import app.daos.DeckDAO;
 import app.entities.Card;
+import app.entities.Deck;
 import io.javalin.Javalin;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.InternalServerErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -19,23 +24,33 @@ public class Main {
     public static void main(String[] args) {
         // Wiring up application
         CardDAO cardDAO = new CardDAO();
+        DeckDAO deckDAO = new DeckDAO();
         CardController cardController = new CardController(cardDAO);
+        DeckController deckController = new DeckController(deckDAO);
 
         // Populate data
+        List<Card> cards = new ArrayList<>();
+        for (int i = 1; i < 14; i++){
+            Card card = cardDAO.create(new Card(i, "spade"));
+            cards.add(card);
+        }
+        for (int i = 1; i < 14; i++){
+            Card card = cardDAO.create(new Card(i, "heart"));
+            cards.add(card);
+        }
+        for (int i = 1; i < 14; i++){
+            Card card = cardDAO.create(new Card(i, "club"));
+            cards.add(card);
+        }
+        for (int i = 1; i < 14; i++){
+            Card card = cardDAO.create(new Card(i, "diamond"));
+            cards.add(card);
+        }
+        deckDAO.create(new Deck(cards));
 
-        for (int i = 1; i < 14; i++){
-            cardDAO.create(new Card(i, "spade"));
-        }
-        for (int i = 1; i < 14; i++){
-            cardDAO.create(new Card(i, "heart"));
-        }
-        for (int i = 1; i < 14; i++){
-            cardDAO.create(new Card(i, "club"));
-        }
-        for (int i = 1; i < 14; i++){
-            cardDAO.create(new Card(i, "diamond"));
-        }
         cardDAO.getAll().forEach(System.out::println);
+        //deckDAO.getAll().forEach(System.out::println);
+
 
         // Configuring and starting Javalin
         Javalin app = Javalin.create(config -> {
@@ -54,6 +69,12 @@ public class Main {
         app.get("/cards/{id}", cardController::getById);
         app.put("/cards/{id}", cardController::update);
         app.delete("/cards/{id}", cardController::delete);
+
+        app.post("/decks", deckController::create);
+        app.get("/decks", deckController::getAll);
+        app.get("/decks/{id}", deckController::getById);
+        app.put("/decks/{id}", deckController::update);
+        app.delete("/decks/{id}", deckController::delete);
 
         app.get("/error", ctx -> {
             logger.error("An error endpoint was accessed");

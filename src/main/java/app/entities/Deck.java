@@ -4,25 +4,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Card {
+public class Deck {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int value;
-    private String suit;
 
-    @ManyToOne
-    @JoinColumn(name = "deck_id")
-    private Deck deck;
+    @OneToMany(mappedBy = "deck")
+    private List<Card> cards;
 
-    public Card(int value, String suit){
-        this.value = value;
-        this.suit = suit;
+    public Deck(List<Card> cards) {
+        this.cards = new ArrayList<>();
     }
+
 }
