@@ -31,25 +31,25 @@ public class Main {
         // Populate data
         List<Card> cards = new ArrayList<>();
         for (int i = 1; i < 14; i++){
-            Card card = cardDAO.create(new Card(i, "spade"));
+            Card card = new Card(i, "spade");
             cards.add(card);
         }
         for (int i = 1; i < 14; i++){
-            Card card = cardDAO.create(new Card(i, "heart"));
+            Card card = new Card(i, "heart");
             cards.add(card);
         }
         for (int i = 1; i < 14; i++){
-            Card card = cardDAO.create(new Card(i, "club"));
+            Card card = new Card(i, "club");
             cards.add(card);
         }
         for (int i = 1; i < 14; i++){
-            Card card = cardDAO.create(new Card(i, "diamond"));
+            Card card = new Card(i, "diamond");
             cards.add(card);
         }
         deckDAO.create(new Deck(cards));
 
         cardDAO.getAll().forEach(System.out::println);
-        //deckDAO.getAll().forEach(System.out::println);
+        deckDAO.getAll().forEach(System.out::println);
 
 
         // Configuring and starting Javalin

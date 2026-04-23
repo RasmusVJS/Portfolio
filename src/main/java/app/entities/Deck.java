@@ -18,11 +18,20 @@ public class Deck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "deck")
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
     private List<Card> cards;
 
     public Deck(List<Card> cards) {
         this.cards = new ArrayList<>();
+        for (Card card : cards) {
+            card.setDeck(this);
+            this.cards.add(card);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Deck{id=" + id + "}";
     }
 
 }

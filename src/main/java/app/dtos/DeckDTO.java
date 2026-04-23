@@ -8,9 +8,9 @@ import java.util.List;
 
 @Data
 public class DeckDTO {
-    private List<Card> cards;
+    private Long id;
 
     public DeckDTO(Deck deck){
-        this.cards = deck.getCards();
+        this.id = deck.getId();
     }
 }
